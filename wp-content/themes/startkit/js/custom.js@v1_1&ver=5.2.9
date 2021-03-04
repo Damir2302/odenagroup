@@ -1,0 +1,96 @@
+(function($) {
+    "use strict";
+	jQuery(document).ready(function() {
+		
+        /* --------------------------------------
+            Scroll UP
+        -------------------------------------- */
+
+        jQuery(window).on('scroll', function() {
+            if ($(this).scrollTop() > 100) {
+                $('.scrollup').fadeIn();
+            } else {
+                $('.scrollup').fadeOut();
+            }
+        });
+
+        jQuery('.scrollup').on('click', function() {
+            $("html, body").animate({
+                scrollTop: 0
+            }, 600);
+            return false;
+        });
+
+        // Search
+        var changeClass = function(name) {
+            $('#search').removeAttr('class').addClass(name);
+        }
+
+        /*------------------------------------
+            Sticky Menu 
+        --------------------------------------*/
+        var windows = $(window);
+        var stick = $(".header-sticky");
+        windows.on('scroll', function() {
+            var scroll = windows.scrollTop();
+            if (scroll < 10) {
+                stick.removeClass("sticky");
+            } else {
+                stick.addClass("sticky");
+            }
+        });
+        /*------------------------------------
+            jQuery MeanMenu 
+        --------------------------------------*/
+		
+		jQuery('.mobile-menu-active').meanmenu({
+            meanScreenWidth: "991",
+            meanMenuContainer: '.mobile-menu'
+        });
+
+        /* last  2 li child add class */
+        jQuery('ul.menu > li').slice(-2).addClass('last-elements');
+	});
+
+
+
+    jQuery(window).on('load', function() {
+
+        // Sticky Nav
+        jQuery(".sticky-nav").sticky({ topSpacing: 0 });
+
+    });
+	
+	// Add/Remove .focus class for accessibility
+	jQuery('.navbar-area').find( 'a' ).on( 'focus blur', function() {
+		jQuery( this ).parents( 'ul, li' ).toggleClass( 'focus' );
+	} );
+}(jQuery));
+
+$('.custom-btn').on('click', function() { 
+	$('.calc-overlay').fadeIn(100); 
+	$('.calc').fadeIn(200);
+});
+$('.calc-overlay').click(function() { // Обрабатываем клик по заднему фону
+    $('.calc-overlay, .calc').fadeOut(200); // Скрываем затемнённый задний фон и основное всплывающее окно
+	$('.wpcc_form').show();
+	$('.wpcc_result_block').hide();
+});
+$('.wpcc_submit').on('click', function() {
+	$('.wpcc_result_block').show();
+});
+$('.wpcc_submit').on('click', function() {
+$('.wpcc_form').hide();
+});
+$('a[title=Услуги], a[title=Банки], a[title=Страны], a[title=Services], a[title=Banks], a[title="Сountries"], a[title="Финансовые"], a[title="Юридические"], a[title="Азия"], a[title="Европа"], a[title="Америка"]').on('click', function(e) {
+e.preventDefault();
+});
+$('.mob-menu .nav-link, .mob-menu .dropdown-item').on('click', function() {
+$(this).parent().siblings().slideToggle(300);
+$(this).next().slideToggle(300);
+});
+$('.mob-menu-btn').on('click', function() {
+$('.mob-menu').slideToggle(300);
+});
+$('.lang-item a img[alt=Русский]').attr('src', 'http://odenagroup.com/wp-content/themes/startkit/images/ru.png');
+$('.lang-item a img[alt=English]').attr('src', 'http://odenagroup.com/wp-content/themes/startkit/images/en.png');
